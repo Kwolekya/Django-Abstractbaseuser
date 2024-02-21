@@ -1,0 +1,10 @@
+{% extends 'users/base.html' %}
+{% block title %}
+  <title>AbstractBaseUser - Logout</title>
+{% endblock title %}
+{% block content %}
+  <div class="logout-container">
+    <h3>You have been logged out</h3>
+    <a href="{% url 'login' %}" style="color: #000000;">Login Again</a>
+  </div>
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'users/base.html' %}
+{% block title %}
+  <title>AbstractBaseUser - Signup user</title>
+{% endblock title %}
+{% block content %}
+
+    <div class="signup-customer" style="border: 0.15rem solid #000000;">
+      <span style="color: #530000;">Create your free account:</span>
+      <form class="form-signup" action="{% url 'register-customer' %}" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-wrap">
+          {{ form.email.errors }}
+          <label for="{{ form.email.id_for_label }}" style="color: #530000;">
+            {{ form.email.label }}
+          </label>
+          {{ form.email }}
+        </div>
+        <div class="form-wrap">
+          {{ form.first_name.errors }}
+          <label for="{{ form.first_name.id_for_label }}" style="color: #530000;">
+            {{ form.first_name.label }}
+          </label>
+          {{ form.first_name }}
+        </div>
+        <div class="form-wrap">
+          {{ form.last_name.errors }}
+          <label for="{{ form.last_name.id_for_label }}" style="color: #530000;">
+            {{ form.last_name.label }}
+          </label>
+          {{ form.last_name }}
+        </div>
+        <div class="form-wrap">
+          {{ form.password1.errors }}
+          <label for="{{ form.password.id_for_label }}" style="color: #530000;">
+            {{ form.password1.label }}
+          </label>
+          {{ form.password1 }}
+        </div>
+        <div class="form-wrap">
+          {{ form.password2.errors }}
+          <label for="{{ form.password.id_for_label }}" style="color: #530000;">
+            {{ form.password2.label }}
+          </label>
+          {{ form.password2 }}
+        </div>
+        <div class="formbox">
+          <h4 style="color: #000000;">Already have an Account?
+            <a href="{% url 'login' %}" style="color: #530000;">Login</a>
+          </h4>
+          <button type="submit">Sign up</button>
+        </div>
+      </form>
+    </div>
+
+{% endblock content %}

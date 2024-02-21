@@ -1,0 +1,31 @@
+{% extends 'users/base.html' %}
+{% block title %}
+  <title>AbstractBaseUser - Signup now</title>
+{% endblock title %}
+{% block content %}
+  <div class="signup-container">
+    <div class="signup-header">
+      <a href="{% url 'home' %}">
+        <h1 style="color: #530000;">
+          DJANGO-AUTH
+        </h1>
+      </a>
+    </div>
+    <div class="signup">
+      <h3 style="color: #530000;">Book your ticket online</h3>
+      <h3 style="color: #530000;">Join us now</h3>
+      <div class="signup-links">
+        <div class="user-signup">
+          <a href="{% url 'register-customer' %}">
+            Wanna book an event? Create free account now
+          </a>
+        </div>
+        <div class="user-login">
+          <a href="{% url 'login' %}">
+            Already have an account? Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

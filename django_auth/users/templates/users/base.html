@@ -1,0 +1,132 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+     rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'users/fontawesome/css/all.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'users/images/favicon.ico' %}">
+    {% block title %}
+      {% if title %}
+        <title>{{ title }}</title>
+      {% else %}
+        <title>Django-auth</title>
+      {% endif %}
+    {% endblock title %}
+    <script type="text/javascript" async>
+      let user = "{{ request.user }}";
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie('csrftoken');
+    </script>
+  </head>
+  <body>
+    <header>
+      <i class="fas fa-bars fa-lg menu-btn"></i>
+      <div class="logo">
+        <a href="#">
+          <img src="{% static 'users/images/logo.jpg' %}" alt="Logo for ">
+        </a>
+        <h1>
+          <a href="#">Django-auth</a>
+        </h1>
+      </div>
+      <nav>
+        <form class="form-search" action="#" method="GET">
+          <input class="search-box" name = "q" type="text"
+            placeholder="Search movies...">
+          <button class="search-button" type="submit">
+            <i class="fas fa-search fa-lg"></i>
+          </button>
+        </form>
+        {% if user.is_authenticated %}
+        <div class="account">
+          {% if user.is_employee and user.is_staff %}
+            <a href="#">
+              <img src="{{ user.employee.avatar.url }}" alt="Avatar of {{ user.last_name }}">
+            </a>
+          {% elif user.is_employee %}
+            <a href="#">
+              <img src="{{ user.employee.avatar.url }}" alt="Avatar of {{ user.last_name }}">
+            </a>
+          {% else %}
+            <a href="#">
+              <img src="{{ user.customer.avatar.url }}" alt="Avatar of {{ user.last_name }}">
+            </a>
+          {% endif %}
+          <a class="btn-login" href="{% url 'logout' %}">Logout</a>          
+        </div>
+        {% else %}
+          <div class="account">
+            <a class="btn-login" href="{% url 'login' %}">Login</a>
+            <a class="btn-signup"href="{% url 'register' %}">Sign up</a>
+          </div>
+        {% endif %}        
+      </nav>
+    </header>
+
+    <div class="grid-wrapper">
+      <section class="sidebar">
+        <div class="categories">
+          {% if user.is_authenticated %}
+          <div class="dashboard">
+            {%  if user.is_staff and user.is_employee %}
+              <a class="" href="#">
+                Admin
+              </a>
+              {% elif user.is_employee %}
+                <a class="" href="#">
+                  My Dasboard
+                </a>
+              {% else %}
+              <a class="" href="#">
+                My Account
+              </a>
+              {% endif %}
+          </div>
+          {% endif %}          
+        </div>
+      </section>
+      <section class="main">
+        {% if messages %}
+        <ul class="messages">
+          {% include 'users/messages.html' %}
+        </ul>
+        {% endif %}
+        {% block content %}
+        {% block page %}
+        {% endblock page %}
+        {% endblock content %}
+      </section>
+    </div>
+    <!-- MDB javascript -->
+    <script type="text/javascript" src="{% static 'movieapp/js/mdb.min.js' %}"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Custom script for comments -->
+    <script type="text/javascript" src="{% static 'users/js/main.js' %}"></script>
+      {% block javascript %}
+
+      {% endblock javascript %}
+  </body>
+</html>

@@ -1,0 +1,61 @@
+{% extends 'users/base.html' %}
+{% block title %}
+  <title>AbstractBaseUser - Signup employee</title>
+{% endblock title %}
+{% block content %}
+    <div class="signup-staff" style="color: #530000; border: 0.15rem solid #000000;">
+      <span style="color: #530000;">Employee Registration:</span>
+      <form class="form-signup" action="{% url 'register-employee' %}" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="staff-info">
+          <div class="p-info">
+            <div class="form-wrap">
+              {{ r_form.email.errors }}
+              <label for="{{ form.email.id_for_label }}" style="color: #530000;">
+                {{ r_form.email.label }}
+              </label>
+              {{ r_form.email }}
+            </div>
+            <div class="form-wrap">
+              {{ r_form.first_name.errors }}
+              <label for="{{ form.first_name.id_for_label }}" style="color: #530000;">
+                {{ r_form.first_name.label }}
+              </label>
+              {{ r_form.first_name }}
+            </div>
+            <div class="form-wrap">
+              {{ r_form.last_name.errors }}
+              <label for="{{ form.last_name.id_for_label }}" style="color: #530000;">
+                {{ r_form.last_name.label }}
+              </label>
+              {{ r_form.last_name }}
+            </div>
+            <div class="form-wrap">
+              {{ r_form.password1.errors }}
+              <label for="{{ form.password.id_for_label }}" style="color: #530000;">
+                {{ r_form.password1.label }}
+              </label>
+              {{ r_form.password1 }}
+            </div>
+            <div class="form-wrap">
+              {{ r_form.password2.errors }}
+              <label for="{{ form.password.id_for_label }}" style="color: #530000;">
+                {{ r_form.password2.label }}
+              </label>
+              {{ r_form.password2 }}
+            </div>
+          </div>
+        </div>
+        <div class="formbox">
+          <h4 style="color: #000000;">Already have an Account?
+            <a href="{% url 'login' %}" style="color: #530000;">
+              Login
+            </a>
+          </h4>
+          <button type="submit">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock content %}

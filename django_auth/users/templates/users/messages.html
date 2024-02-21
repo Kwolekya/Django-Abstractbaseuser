@@ -1,0 +1,7 @@
+
+  {% for message in messages %}
+  <li {% if message.tags %} class="alert {{ message.tags }}" {% endif %} id="dismiss-alert">
+    {{ message }}
+    <span class="btn-alert">&times;</span>
+  </li>
+  {% endfor %}
